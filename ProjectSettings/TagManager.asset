@@ -44,12 +44,15 @@ TagManager:
   - name: Terrain
     uniqueID: 820863345
     locked: 0
-  - name: Player
-    uniqueID: 3112135935
-    locked: 0
   - name: Supply
     uniqueID: 3101677823
     locked: 0
-  - name: New Layer 4
+  - name: Player
+    uniqueID: 3112135935
+    locked: 0
+  - name: Enemy
     uniqueID: 2982861445
+    locked: 0
+  - name: Bullets
+    uniqueID: 143878433
     locked: 0
