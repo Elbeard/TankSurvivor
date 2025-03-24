@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &825034939366517233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7253960878922006712}
+  m_Layer: 6
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7253960878922006712
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825034939366517233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.68, y: -0.04, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6214056413331904596}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &2274399625850325163
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1637086023712123680}
   - component: {fileID: 270481517954392834}
-  m_Layer: 0
+  - component: {fileID: 4031912713937096710}
+  - component: {fileID: 8011999342498371060}
+  m_Layer: 6
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +78,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfa9a94877293824aa4a3e763ecec96f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4031912713937096710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274399625850325163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c2e3839b515f842b64ea307be0a328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 0.56
+  projectileSpeed: 21.27
+  firePoint: {fileID: 7253960878922006712}
+  fireAction: {fileID: 5857072945278533451, guid: 25cf596d5c4ac9b45b2c3fd3a464f898, type: 3}
+--- !u!114 &8011999342498371060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274399625850325163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c69526878e846429a76d748d70a908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 4539660292880381166, guid: 3a5aab856063ccc46853bc4080c6d21a, type: 3}
+  initialPoolSize: 10
 --- !u!1 &4457464071468641348
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6214056413331904596}
   - component: {fileID: 4025093589774884280}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tower Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +137,8 @@ Transform:
   m_LocalPosition: {x: 2.18, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7253960878922006712}
   m_Father: {fileID: 1637086023712123680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4025093589774884280
@@ -139,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 694362220425544367}
   - component: {fileID: 3600098799638704961}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +292,7 @@ GameObject:
   - component: {fileID: 6040827067720128936}
   - component: {fileID: 2250456605187229289}
   - component: {fileID: 7793995264676167753}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6769466024908503392}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
