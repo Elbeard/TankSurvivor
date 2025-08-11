@@ -33,7 +33,7 @@ public class TankGun : MonoBehaviour
 
     private void Start()
     {
-        projectilePool.InitializePool();
+        //projectilePool.InitializePool();
     }
 
     private void OnEnable()
@@ -63,13 +63,13 @@ public class TankGun : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject projectile = projectilePool.GetProjectile();
+        Projectile projectile = projectilePool.GetProjectile();
 
         if (projectile != null)
         {
             projectile.transform.position = firePoint.position;
             projectile.transform.rotation = firePoint.rotation;
-            projectile.SetActive(true);
+            projectile.gameObject.SetActive(true);
 
             Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
             if (rb != null)

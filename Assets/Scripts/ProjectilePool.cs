@@ -1,57 +1,95 @@
-using System.Collections;
-using System.Collections.Generic;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.Pool;
+
+//public class ProjectilePool : MonoBehaviour
+//{
+//    [SerializeField] private GameObject projectilePrefab;
+//    [SerializeField] private int initialPoolSize = 10;
+
+//    private Queue<GameObject> projectileQueue;
+
+//    public void InitializePool()
+//    {
+//        projectileQueue = new Queue<GameObject>();
+
+//        for (int i = 0; i < initialPoolSize; i++)
+//        {
+//            AddNewProjectileToPool();
+//        }
+//    }
+
+//    private GameObject AddNewProjectileToPool()
+//    {
+//        GameObject projectile = Instantiate(projectilePrefab, transform);
+//        projectile.SetActive(false);
+//        projectileQueue.Enqueue(projectile);
+//        return projectile;
+//    }
+
+//    public GameObject GetProjectile()
+//    {
+//        // Ищем первый неактивный снаряд в очереди
+//        foreach (GameObject projectile in projectileQueue)
+//        {
+//            if (!projectile.activeInHierarchy)
+//            {
+//                return projectile;
+//            }
+//        }
+
+//        // Если все снаряды активны, создаем новый
+//        return AddNewProjectileToPool();
+//    }
+
+//    public void ReturnProjectile(GameObject projectile)
+//    {
+//        projectile.SetActive(false);
+
+//        // Сбрасываем физическое состояние
+//        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+//        if (rb != null)
+//        {
+//            rb.velocity = Vector2.zero;
+//            rb.angularVelocity = 0f;
+//        }
+//    }
+//}
+
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class ProjectilePool : MonoBehaviour
 {
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private int initialPoolSize = 10;
+    [SerializeField] private Projectile projectilePrefab;
 
-    private Queue<GameObject> projectileQueue;
+    private ObjectPool<Projectile> _pool;
 
-    public void InitializePool()
+    private void Awake()
     {
-        projectileQueue = new Queue<GameObject>();
-
-        for (int i = 0; i < initialPoolSize; i++)
-        {
-            AddNewProjectileToPool();
-        }
+        _pool = new ObjectPool<Projectile>(
+            createFunc: () => Instantiate(projectilePrefab),
+            actionOnGet: (projectile) => projectile.gameObject.SetActive(true),
+            actionOnRelease: (projectile) => projectile.gameObject.SetActive(false),
+            actionOnDestroy: (projectile) => Destroy(projectile.gameObject),
+            collectionCheck: true, 
+            defaultCapacity: 10,
+            maxSize: 20);
     }
 
-    private GameObject AddNewProjectileToPool()
+    public Projectile GetProjectile()
     {
-        GameObject projectile = Instantiate(projectilePrefab, transform);
-        projectile.SetActive(false);
-        projectileQueue.Enqueue(projectile);
-        return projectile;
+        return _pool.Get();
     }
 
-    public GameObject GetProjectile()
+    public void ReleaseProjectile(Projectile projectile)
     {
-        // Ищем первый неактивный снаряд в очереди
-        foreach (GameObject projectile in projectileQueue)
-        {
-            if (!projectile.activeInHierarchy)
-            {
-                return projectile;
-            }
-        }
-
-        // Если все снаряды активны, создаем новый
-        return AddNewProjectileToPool();
+        _pool.Release(projectile);
     }
 
-    public void ReturnProjectile(GameObject projectile)
+    private void OnDestroy()
     {
-        projectile.SetActive(false);
-
-        // Сбрасываем физическое состояние
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-        }
+        _pool.Dispose(); 
     }
 }

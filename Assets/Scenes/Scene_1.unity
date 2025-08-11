@@ -316,6 +316,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 53990404895807717, guid: 75c75c13db376ea4097ecac3f8ced785, type: 3}
+      propertyPath: _smoothTime
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 53990404895807717, guid: 75c75c13db376ea4097ecac3f8ced785, type: 3}
+      propertyPath: _rotationSpeed
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 3600098799638704961, guid: 75c75c13db376ea4097ecac3f8ced785, type: 3}
       propertyPath: m_SortingLayer
       value: 3
@@ -331,6 +339,10 @@ PrefabInstance:
     - target: {fileID: 4025093589774884280, guid: 75c75c13db376ea4097ecac3f8ced785, type: 3}
       propertyPath: m_SortingLayerID
       value: -1182831361
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031912713937096710, guid: 75c75c13db376ea4097ecac3f8ced785, type: 3}
+      propertyPath: projectileSpeed
+      value: 69.2
       objectReference: {fileID: 0}
     - target: {fileID: 6040827067720128936, guid: 75c75c13db376ea4097ecac3f8ced785, type: 3}
       propertyPath: m_Camera
@@ -380,6 +392,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8011999342498371060, guid: 75c75c13db376ea4097ecac3f8ced785, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 2034912852295415617, guid: 3a5aab856063ccc46853bc4080c6d21a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

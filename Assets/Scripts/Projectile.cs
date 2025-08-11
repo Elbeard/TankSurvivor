@@ -31,6 +31,28 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    private void ResetState()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+    }
+    public void ReturnToPool()
+    {
+        if (pool != null)
+        {
+            ResetState();
+            pool.ReleaseProjectile(this);
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
     //    if (((1 << collision.gameObject.layer) & damageLayers) != 0)
@@ -45,15 +67,4 @@ public class Projectile : MonoBehaviour
     //    }
     //}
 
-    private void ReturnToPool()
-    {
-        if (pool != null)
-        {
-            pool.ReturnProjectile(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 }
