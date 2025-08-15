@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
-
+using Random = UnityEngine.Random;
 
 public class TankGun : MonoBehaviour
 {
@@ -9,6 +8,7 @@ public class TankGun : MonoBehaviour
     [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private SimpleAudioEvent audioEvent;
 
     [Header("Input Settings")]
     [SerializeField] private InputActionReference fireAction;
@@ -63,6 +63,7 @@ public class TankGun : MonoBehaviour
 
     private void Shoot()
     {
+        PlayAudioEffect();
         Projectile projectile = projectilePool.GetProjectile();
 
         if (projectile != null)
@@ -70,6 +71,7 @@ public class TankGun : MonoBehaviour
             projectile.transform.position = firePoint.position;
             projectile.transform.rotation = firePoint.rotation;
             projectile.gameObject.SetActive(true);
+
 
             Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
             if (rb != null)
@@ -86,6 +88,15 @@ public class TankGun : MonoBehaviour
 
             projectile.transform.SetParent(null);
         }
+    }
+
+    private void PlayAudioEffect()
+    {
+        AudioClip clip = audioEvent.clips[Random.Range(0, audioEvent.clips.Length)];
+        float volume = Random.Range(audioEvent.volume.x, audioEvent.volume.y);
+        float pitch = Random.Range(audioEvent.pitch.x, audioEvent.pitch.y);
+
+        AudioPool.Instance.TryPlaySound(clip, transform.position, SoundPriority.High, volume, pitch);
     }
 }
 
