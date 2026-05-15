@@ -1,63 +1,4 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.Pool;
-
-//public class ProjectilePool : MonoBehaviour
-//{
-//    [SerializeField] private GameObject projectilePrefab;
-//    [SerializeField] private int initialPoolSize = 10;
-
-//    private Queue<GameObject> projectileQueue;
-
-//    public void InitializePool()
-//    {
-//        projectileQueue = new Queue<GameObject>();
-
-//        for (int i = 0; i < initialPoolSize; i++)
-//        {
-//            AddNewProjectileToPool();
-//        }
-//    }
-
-//    private GameObject AddNewProjectileToPool()
-//    {
-//        GameObject projectile = Instantiate(projectilePrefab, transform);
-//        projectile.SetActive(false);
-//        projectileQueue.Enqueue(projectile);
-//        return projectile;
-//    }
-
-//    public GameObject GetProjectile()
-//    {
-//        // Ищем первый неактивный снаряд в очереди
-//        foreach (GameObject projectile in projectileQueue)
-//        {
-//            if (!projectile.activeInHierarchy)
-//            {
-//                return projectile;
-//            }
-//        }
-
-//        // Если все снаряды активны, создаем новый
-//        return AddNewProjectileToPool();
-//    }
-
-//    public void ReturnProjectile(GameObject projectile)
-//    {
-//        projectile.SetActive(false);
-
-//        // Сбрасываем физическое состояние
-//        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-//        if (rb != null)
-//        {
-//            rb.velocity = Vector2.zero;
-//            rb.angularVelocity = 0f;
-//        }
-//    }
-//}
-
-using UnityEngine;
+п»їusing UnityEngine;
 using UnityEngine.Pool;
 
 public class ProjectilePool : MonoBehaviour
@@ -72,8 +13,13 @@ public class ProjectilePool : MonoBehaviour
             createFunc: () => Instantiate(projectilePrefab),
             actionOnGet: (projectile) => projectile.gameObject.SetActive(true),
             actionOnRelease: (projectile) => projectile.gameObject.SetActive(false),
-            actionOnDestroy: (projectile) => Destroy(projectile.gameObject),
-            collectionCheck: true, 
+            actionOnDestroy: (projectile) =>
+            {
+                // РџСЂРё Stop Play Unity СѓР¶Рµ РјРѕРі СѓРЅРёС‡С‚РѕР¶РёС‚СЊ СЃРЅР°СЂСЏРґ (unparent РІ OnEnable).
+                if (projectile)
+                    Destroy(projectile.gameObject);
+            },
+            collectionCheck: true,
             defaultCapacity: 10,
             maxSize: 20);
     }
@@ -90,6 +36,17 @@ public class ProjectilePool : MonoBehaviour
 
     private void OnDestroy()
     {
-        _pool.Dispose(); 
+        if (_pool == null)
+            return;
+
+        // РџСЂРё РІС‹С…РѕРґРµ РёР· Play РЅРµ РІС‹Р·С‹РІР°РµРј Dispose вЂ” Unity СЃР°Рј РѕС‡РёСЃС‚РёС‚ СЃС†РµРЅСѓ.
+        if (!Application.isPlaying)
+        {
+            _pool = null;
+            return;
+        }
+
+        _pool.Dispose();
+        _pool = null;
     }
 }

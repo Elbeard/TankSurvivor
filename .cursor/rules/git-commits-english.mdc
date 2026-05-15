@@ -1,0 +1,32 @@
+﻿---
+description: Сообщения git-коммитов — только на английском (subject и body)
+alwaysApply: true
+---
+
+# Git: commit messages in English
+
+## When creating commits
+
+- **Subject and body** of every commit message must be in **English**.
+- Use imperative mood in the subject: `Add`, `Fix`, `Update`, `Remove` (or Conventional Commits: `feat:`, `fix:`, `docs:`).
+- Keep the subject line concise (≈50–72 chars); put details in the body if needed.
+
+## Do not
+
+- Write commit subjects or bodies in Russian or translit (`добавил чанки`, `fix pool`).
+- Mix languages in one commit message.
+
+## Examples
+
+```
+fix: skip ObjectPool.Dispose when leaving Play mode in ProjectilePool
+
+feat: add ChunkStreamer and world chunk prefabs under Assets/WorldChunks
+
+docs: add dev-conventions and update systems.md for chunk streaming
+```
+
+## Related
+
+- User-facing chat and code comments: Russian — see `language-russian.mdc`.
+- Details: `docs/dev-conventions.md`.

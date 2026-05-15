@@ -93,6 +93,7 @@ MonoBehaviour:
   fireRate: 0.56
   projectileSpeed: 21.27
   firePoint: {fileID: 7253960878922006712}
+  audioEvent: {fileID: 0}
   fireAction: {fileID: 5857072945278533451, guid: 25cf596d5c4ac9b45b2c3fd3a464f898, type: 3}
 --- !u!114 &8011999342498371060
 MonoBehaviour:
@@ -106,8 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c69526878e846429a76d748d70a908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 4539660292880381166, guid: 3a5aab856063ccc46853bc4080c6d21a, type: 3}
-  initialPoolSize: 10
+  projectilePrefab: {fileID: 2034912852295415617, guid: 3a5aab856063ccc46853bc4080c6d21a, type: 3}
 --- !u!1 &4457464071468641348
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,8 @@
+root = true
+
+# Кириллица в комментариях: UTF-8 с BOM (Unity / Windows)
+[*.cs]
+charset = utf-8-bom
+indent_style = space
+indent_size = 4
+end_of_line = crlf
