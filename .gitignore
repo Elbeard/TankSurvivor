@@ -73,3 +73,4 @@ crashlytics-build.properties
 
 # Package sample imports (e.g. Cinemachine) — large, not part of the game
 /[Aa]ssets/[Ss]amples/
+/[Aa]ssets/[Ss]amples.meta
