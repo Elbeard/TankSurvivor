@@ -1,15 +1,30 @@
-# Стриминг карты чанками — дизайн и примеры кода
+﻿# Стриминг карты чанками — дизайн и примеры кода
 
 > Документ для **TankSurvivor**: как устроены **чанки** (chunks), как они создаются впереди по движению танка и убираются сзади.  
-> **Реализация в проекте:** [Assets/WorldChunks/README.md](../Assets/WorldChunks/README.md) — рабочий `ChunkStreamer`, prefab, настройки.
+> **Реализация:** [Assets/ChunkWorld/README.md](../Assets/ChunkWorld/README.md) — `ChunkWorldStreamer`, каталог текстур.  
+> **Дизайн:** [project-design.md](project-design.md).
 
 Связанные файлы: [vision.md](vision.md), [implementation-plan.md](implementation-plan.md) (фаза 5), [roadmap.md](roadmap.md).
+
+> **Реализация:** `Assets/ChunkWorld` (`ChunkWorldStreamer`, `ChunkWorldConfig`). Разделы **7–8** ниже — исторический псевдокод старого `WorldChunks`/`ChunkStreamer`; живой API — [Assets/ChunkWorld/README.md](../Assets/ChunkWorld/README.md).
 
 ---
 
 ## 1. Что такое чанк в этом проекте
 
-**Чанк** — квадратный кусок мира фиксированного размера. В дизайне ниже для примеров часто **20×20**; в **текущем проекте** в `DefaultChunkSettings` задано **4800×4800** (настраивается в Inspector). После смены размера — **Tools → Repair World Chunk Prefabs**.
+**Чанк** — квадратный кусок мира фиксированного размера. В примерах ниже часто **20×20** для наглядности.
+
+**Сейчас в репозитории (`ChunkWorld`):**
+
+| Параметр | Значение |
+|----------|----------|
+| Текстуры | 1024×1024, **PPU 100** → спрайт ≈ **10.24×10.24** мировых единиц |
+| Размер чанка | `DefaultChunkWorldConfig` → **Chunk Size Source = Match Sprite** |
+| Пол | **Ground Layout = Fit Chunk** (масштаб `chunkSize / sprite.bounds`, без растягивания до огромного scale) |
+| Биом на уровне | **Fixed Single → Grass** (каталог: Grass, Send, Stone, Taiga) |
+| Сцена | **Tools → ChunkWorld → Setup Open Scene** |
+
+Старый модуль **`Assets/WorldChunks`** (prefab-варианты, `chunkSize` 4800) **удалён**.
 
 - У каждого чанка есть **логическая координата** `(chunkX, chunkY)` — целые числа, не зависят от того, загружен он в сцену или нет.
 - **Мировая позиция** левого нижнего угла чанка:

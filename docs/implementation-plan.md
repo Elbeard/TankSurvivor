@@ -1,4 +1,4 @@
-# Implementation plan — from current repo to the vision
+﻿# Implementation plan — from current repo to the vision
 
 This plan maps the [vision](vision.md) to **TankSurvivor** as it exists today (`Scene_1`, `Player`, `TankGun`, `AudioPool`, etc.).
 
@@ -110,18 +110,22 @@ Existing `PlayNextTrack` / fade coroutines can switch tracks on purchase.
 
 ## Phase 5 — Map generation at edges ✅ (baseline in repo)
 
-**Implemented:** `Assets/WorldChunks/` — `ChunkStreamer`, `ChunkPool`, 3 prefab variants, editor **Tools → Repair World Chunk Prefabs**. Wired in `Scene_1` as `WorldChunkSystem`.
+**Implemented:** `Assets/ChunkWorld/` — `ChunkWorldStreamer`, `ChunkWorldChunkPool`, biome texture catalog, editor **Tools → ChunkWorld**. `Scene_1`: `ChunkWorldSystem` + `ChunkWorldSceneBootstrap` → `Player`.
 
 | Doc | Content |
 |-----|---------|
-| [Assets/WorldChunks/README.md](../Assets/WorldChunks/README.md) | Setup, API, inspector |
-| [chunk-streaming-design.md](chunk-streaming-design.md) | Design (chunk size in design doc is conceptual; project uses **4800** in `DefaultChunkSettings`) |
+| [Assets/ChunkWorld/README.md](../Assets/ChunkWorld/README.md) | Setup, PPU/chunk size, API |
+| [chunk-streaming-design.md](chunk-streaming-design.md) | Design + algorithm (§7–8 legacy pseudocode) |
+| [project-design.md](project-design.md) | Biomes, decor, score → graphics |
+
+**Current playtest defaults:** textures 1024@PPU100 → chunk ~**10.24** units; **Fixed Single → Grass**.
 
 **Still open for vision:**
 
-- Tie chunk prefabs to **presentation tier** from score shop → `ChunkStreamer.ReloadAllChunks()`.
+- **Procedural** biomes in config; decor prefabs on spawn.
+- Tie biome/decor sets to **presentation tier** from score shop → `ChunkWorldStreamer.ReloadAllChunks()`.
 - `EdgeSpawnController` using `GetActiveCoords()` for border spawns.
-- Optional colliders / tilemap later (current chunks are visual-only, top-down).
+- Optional colliders / tilemap later (ground is visual-only, top-down).
 
 Original approaches for reference:
 

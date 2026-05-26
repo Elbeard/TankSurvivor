@@ -1,4 +1,4 @@
----
+﻿---
 description: После изменений в проекте — проверить ошибки и исправить до ответа пользователю
 alwaysApply: true
 ---
@@ -20,7 +20,7 @@ alwaysApply: true
 
 - **GUID в `.meta`** — ровно **32** hex-символа (`[0-9a-f]`). Не создавай `.meta` вручную без проверки длины.
 - **Новые скрипты** — папка `Editor/` только для editor-кода; runtime-скрипты не в `Editor/`.
-- **Prefab / ScriptableObject** — после ручного YAML предпочитай меню **Tools → Repair World Chunk Prefabs** или `AddComponent` через Editor-скрипт.
+- **ChunkWorld** — prefab и сцена: **Tools → ChunkWorld → Setup Open Scene**; текстуры: **Refresh Biome Textures From Folders**.
 - **Не коммить** `Library/`, `Temp/`, `Logs/`.
 
 ## Когда нельзя запустить Unity

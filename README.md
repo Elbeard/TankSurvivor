@@ -1,4 +1,4 @@
-# TankSurvivor
+﻿# TankSurvivor
 
 2D **top-down tank shooter**: drive, aim with the mouse, shoot. Enemies pressure you from the **edges of the arena**. Earn **score** during a run and spend it in a shop to upgrade **graphics** and **music**—the game should look and sound richer as you invest points.
 
@@ -30,6 +30,7 @@
 | Doc | Content |
 |-----|---------|
 | [docs/cursor-russian-voice.md](docs/cursor-russian-voice.md) | Русский в чате и настройка микрофона Cursor |
+| [docs/project-design.md](docs/project-design.md) | **Общий дизайн** — карта, биомы, декор, прокачка графики |
 | [docs/vision.md](docs/vision.md) | **Core vision** — score shop, visual/audio tiers, map edges |
 | [docs/implementation-plan.md](docs/implementation-plan.md) | Phased plan mapped to this repo |
 | [docs/game-overview.md](docs/game-overview.md) | Overview (RU) |
@@ -37,7 +38,7 @@
 | [docs/systems.md](docs/systems.md) | Code & systems status |
 | [docs/roadmap.md](docs/roadmap.md) | Checklist |
 | [docs/chunk-streaming-design.md](docs/chunk-streaming-design.md) | Чанки карты: дизайн и алгоритм |
-| [Assets/WorldChunks/README.md](Assets/WorldChunks/README.md) | **Рабочая реализация** чанков в проекте |
+| [Assets/ChunkWorld/README.md](Assets/ChunkWorld/README.md) | Модуль **ChunkWorld** (карта, чанки, контент) |
 | [docs/dev-conventions.md](docs/dev-conventions.md) | Кодировка, комментарии, язык коммитов |
 
 ## Current vs vision
@@ -48,7 +49,7 @@
 | Edge enemy pressure | ⏳ Planned |
 | Score → buy better graphics | ⏳ Planned |
 | Score → buy better music | ⏳ Planned (audio stack started) |
-| Procedural map (chunk streaming) | ✅ `Assets/WorldChunks` |
+| Procedural map (chunk streaming) | ✅ `Assets/ChunkWorld` |
 
 ## Key assets
 
@@ -56,8 +57,8 @@
 - `Assets/Prefabs/SimpleEnemy.prefab`
 - `Assets/Prefabs/Projectile.prefab`
 - `Assets/Sounds/Explosion.asset` — gunshot `SimpleAudioEvent`
-- `Scene_1` — `AudioManager`, `AudioPool`, `WorldChunkSystem`
-- `Assets/WorldChunks/` — стриминг карты чанками
+- `Scene_1` — `AudioManager`, `AudioPool`; чанки: **Tools → ChunkWorld → Setup Open Scene**
+- `Assets/ChunkWorld/` — **модуль карты** (стриминг, биомы, `Content/Textures`)
 
 ## Stack
 

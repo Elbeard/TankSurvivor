@@ -1,4 +1,4 @@
-# Game vision — TankSurvivor
+﻿# Game vision — TankSurvivor
 
 ## Elevator pitch
 
@@ -24,6 +24,8 @@ Two complementary ideas (can combine):
 2. **Edge generation** — As the player pushes toward the border, **new terrain tiles / chunks** are generated so the arena grows outward. The center stays the “safe” learned space; the frontier is dangerous and new.
 
 For MVP, **edge spawning** is faster to ship with the current project. **Chunk generation** is the long-term map vision.
+
+**Design doc (RU):** [project-design.md](project-design.md) — biomes as chunk base, decor prefab sets on top, visual tiers from score shop reload visible chunks.
 
 ## Score → upgrades (main progression fantasy)
 

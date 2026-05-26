@@ -43,7 +43,8 @@ docs: document dev conventions and UTF-8 BOM for Cyrillic comments
 
 - Не коммитить `Library/`, `Temp/`, `Logs/`, `UserSettings/`.
 - GUID в `.meta` — ровно **32** hex-символа.
-- После правок чанков: **Tools → Repair World Chunk Prefabs** (см. [Assets/WorldChunks/README.md](../Assets/WorldChunks/README.md)).
+- После правок карты/текстур: **Tools → ChunkWorld →** Refresh Biome Textures / Setup Open Scene (см. [Assets/ChunkWorld/README.md](../Assets/ChunkWorld/README.md)).
+- Не коммитить **`Assets/Samples/`** (автоимпорт примеров пакетов Unity).
 
 ---
 
@@ -54,6 +55,7 @@ docs: document dev conventions and UTF-8 BOM for Cyrillic comments
 | `language-russian.mdc` | Ответы агента и комментарии в коде |
 | `git-commits-english.mdc` | Сообщения коммитов |
 | `verify-after-changes.mdc` | Проверка после правок |
+| `project-design-context.mdc` | Читать `docs/project-design.md` для задач по карте и прогрессии |
 
 ---
 

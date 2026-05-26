@@ -1,6 +1,6 @@
 # Roadmap
 
-Ориентир: [vision.md](vision.md) · Детальный план: [implementation-plan.md](implementation-plan.md)
+Ориентир: [vision.md](vision.md) · Общий дизайн: [project-design.md](project-design.md) · План: [implementation-plan.md](implementation-plan.md)
 
 ## Сделано
 
@@ -9,7 +9,7 @@
 - [x] Враг: преследование
 - [x] Каркас музыки/эмбиента (`AudioManager`, mixer)
 - [x] Документация видения и плана
-- [x] Стриминг карты чанками (`Assets/WorldChunks`, `Scene_1` / `WorldChunkSystem`)
+- [x] Стриминг карты (`Assets/ChunkWorld`, `ChunkWorldStreamer`)
 - [x] `ProjectilePool`: без ошибки при выходе из Play (`MissingReferenceException`)
 - [x] Соглашения: `.editorconfig` (UTF-8 BOM), Cursor rules, [dev-conventions.md](dev-conventions.md)
 
@@ -44,14 +44,17 @@
 
 ## Фаза 5 — Генерация карты у краёв
 
-Код: **`Assets/WorldChunks/`** · Дизайн: [chunk-streaming-design.md](chunk-streaming-design.md)
+Код: **`Assets/ChunkWorld/`** · Дизайн: [chunk-streaming-design.md](chunk-streaming-design.md) · Модуль: [Assets/ChunkWorld/README.md](../Assets/ChunkWorld/README.md)
 
-- [x] `ChunkSettings` + `DefaultChunkSettings.asset`
-- [x] `ChunkStreamer` + `ChunkCoordUtil` + пул
-- [x] 3 варианта чанков (runtime / меню Generate Example Prefabs)
+- [x] `ChunkWorldConfig` + `DefaultChunkWorldConfig.asset`
+- [x] `ChunkWorldStreamer` + coord/hash + пул + builder
+- [x] Каталог текстур биомов (`DefaultBiomeTextures`, PNG 1024@PPU100)
 - [x] Детерминированный seed по coord
 - [x] Асимметрия ahead/behind
-- [ ] Визуальное качество чанков привязать к visual tier (опционально)
+- [x] Match Sprite / Fit Chunk (корректный масштаб пола)
+- [x] Уровень: Fixed Single → Grass
+- [x] Миграция с `Assets/WorldChunks` (удалён)
+- [ ] Procedural биомы + декор + тиры из магазина — [project-design.md](project-design.md)
 
 ## Фаза 6 — Полировка
 
@@ -62,7 +65,7 @@
 
 ## Техдолг
 
-- [ ] Подогнать `Camera` orthographic size под `chunkSize` (4800) или уменьшить чанк для тестов
+- [ ] Подогнать `Camera` orthographic size под чанк ~10.24 u (или буфер/PPU для обзора нескольких чанков)
 - [ ] Убрать дублирование `GameInput` / `PlayerInputHandler`
 - [ ] Кэш ссылки на игрока у врага
 - [ ] Переименовать `Explosion.asset` → `Gunshot` (ясность)

@@ -1,4 +1,4 @@
-# Системы и код
+﻿# Системы и код
 
 ## Схема зависимостей (упрощённо)
 
@@ -14,9 +14,9 @@ PlayerInputActions (Fire, Move, Look)
 
 EnemyAwarenessController ──► EnemyMovement
 
-ChunkStreamer ──► ChunkPool ──► WorldChunk (prefab variants)
+ChunkWorldStreamer ──► ChunkWorldChunkPool ──► ChunkWorldChunk (спрайт из каталога)
         │
-        └─► ChunkRequiredSetBuilder, PrefabChunkProvider, ChunkHash
+        └─► ChunkWorldRequiredSetBuilder, ChunkWorldBiomeUtil
 ```
 
 ## Таблица систем
@@ -28,7 +28,7 @@ ChunkStreamer ──► ChunkPool ──► WorldChunk (prefab variants)
 | Башня | `TowerRotation` | Дочерний объект Tower | ✅ |
 | Стрельба | `TankGun` | `Player`, `FirePoint` | ✅ |
 | Пул снарядов | `ProjectilePool`, `Projectile` | `Projectile.prefab` | ✅ (фикс выхода из Play) |
-| Стриминг карты | `ChunkStreamer`, `ChunkPool`, `WorldChunk`, … | `Assets/WorldChunks/` | ✅ |
+| Стриминг карты | `ChunkWorldStreamer`, `ChunkWorldChunkPool`, … | `Assets/ChunkWorld/` | ✅ |
 | Урон | `Projectile` (закомментирован) | — | ⏳ Нет `Health` |
 | Враг: обнаружение | `EnemyAwarenessController` | `SimpleEnemy.prefab` | ✅ |
 | Враг: движение | `EnemyMovement` | `SimpleEnemy.prefab` | ✅ |
@@ -110,19 +110,16 @@ ChunkStreamer ──► ChunkPool ──► WorldChunk (prefab variants)
 
 `Instance` через `FindObjectOfType` при первом обращении.
 
-## World Chunks (`Assets/WorldChunks/`)
+## ChunkWorld (`Assets/ChunkWorld/`)
 
 | Компонент | Роль |
 |-----------|------|
-| `ChunkStreamer` | Следит за игроком, спавнит/убирает чанки |
-| `ChunkSettings` | Размер чанка (сейчас **4800**), seed, буфер ahead/behind |
-| `ChunkPool` | Пул экземпляров без `Destroy` |
-| `PrefabChunkProvider` + `ChunkHash` | Детерминированный выбор варианта A/B/C |
-| `WorldChunkRuntimeFactory` | Fallback-визуал и **Tools → Repair World Chunk Prefabs** |
+| `ChunkWorldStreamer` | Стриминг вокруг цели следования |
+| `ChunkWorldConfig` | chunkSize, seed, буфер; ссылка на каталог текстур |
+| `ChunkWorldBiomeTextureCatalog` | Спрайты пола по биомам (Inspector) |
+| `ChunkWorldSceneBootstrap` | Игра: привязка `Player` → streamer |
 
-Подробнее: [Assets/WorldChunks/README.md](../Assets/WorldChunks/README.md), [chunk-streaming-design.md](chunk-streaming-design.md).
-
-На сцене: **WorldChunkSystem** (prefab с `ChunkStreamer` + дочерний `ChunkRoot`). Земля **без коллайдера** (только визуал).
+Подробнее: [Assets/ChunkWorld/README.md](../Assets/ChunkWorld/README.md). Земля без коллайдера.
 
 ## Сцена Scene_1 (ожидаемые объекты)
 
@@ -130,7 +127,7 @@ ChunkStreamer ──► ChunkPool ──► WorldChunk (prefab variants)
 - **Enemy** (инстанс `SimpleEnemy`)
 - **AudioManager** — компонент `Audio.AudioManager`
 - **AudioPool** — компонент `AudioPool`
-- **WorldChunkSystem** — стриминг чанков
+- **ChunkWorldSystem** — модуль карты (после Setup Open Scene)
 
 ## Папки
 
@@ -142,7 +139,7 @@ Assets/
   ScriptableObjects/ — AudioEvent, SimpleAudioEvent
   Scripts/         — игровая логика
   Sounds/          — ogg, mixer, Explosion.asset
-  WorldChunks/     — стриминг карты, prefab чанков, Editor Tools
+  ChunkWorld/      — модуль карты (Runtime + Content)
 ```
 
 ## Соглашения разработки
